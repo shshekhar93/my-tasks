@@ -1,19 +1,24 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "My Notes",
+  "name": "Notes application for my personal use",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "logo-32x32.png",
+      "type": "image/png",
+      "sizes": "32x32"
     },
     {
-      "src": "logo192.png",
+      "src": "logo-64x64.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    },
+    {
+      "src": "logo-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "logo-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

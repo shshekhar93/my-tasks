@@ -1,0 +1,23 @@
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1D2830;
+  color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+.navigation * {
+  margin: 0;
+}
+
+.navigation-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navigation-brand img {
+  width: 2rem;
+}
