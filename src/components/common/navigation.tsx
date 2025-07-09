@@ -1,6 +1,6 @@
 import React from 'react';
 import './navigation.css';
-import logo from '../../logo.svg';
+import logo from '../../assets/logo.svg';
 
 export function Navigation({ children }: { children: React.ReactNode }) {
   return (
