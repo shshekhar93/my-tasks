@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '../common/modal.tsx';
 import { TaskFormData } from './types.ts';
-
 
 interface CreateTaskModalProps {
   isOpen: boolean;
@@ -9,16 +8,31 @@ interface CreateTaskModalProps {
   onSubmit: (taskData: TaskFormData) => void;
 }
 
+function formatDate(date: number) {
+  const dateObj = new Date(date);
+  if(isNaN(dateObj.getTime())) {
+    return '';
+  }
+  return `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 101).substring(1)}-${dateObj.getDate()}`;
+}
+
 const defaultFormData = (): TaskFormData => ({
   title: 'New Task',
   description: '',
-  dueDate: '',
+  dueDate: Date.now(),
   effort: 1,
   priority: 2,
   category: '',
   tags: [],
   completed: false,
 });
+
+const mappers = {
+  dueDate: (value: string) => new Date(value).getTime(),
+  effort: (value: string) => parseInt(value) || 1,
+  priority: (value: string) => parseInt(value) || 2,
+  default: (value: string) => value,
+};
 
 const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
   isOpen,
@@ -27,21 +41,25 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
 }) => {
   const [formData, setFormData] = useState(defaultFormData);
 
+  useEffect(() => {
+    if(!isOpen) { // Reset form when modal is closed
+      setFormData(defaultFormData());
+    }
+  }, [isOpen]);
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'effortEstimate' ? parseInt(value) || 1 : value,
+      [name]: (mappers[name as keyof typeof mappers] || mappers.default)(value),
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
-    setFormData(defaultFormData());
-    onClose();
   };
 
   return (
@@ -105,9 +123,9 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
           </label>
           <input
             type="date"
-            id="eta"
-            name="eta"
-            value={formData.eta}
+            id="dueDate"
+            name="dueDate"
+            value={formatDate(formData.dueDate)}
             onChange={handleInputChange}
             style={{
               width: '100%',
@@ -127,7 +145,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
             type="number"
             id="effortEstimate"
             name="effortEstimate"
-            value={formData.effortEstimate}
+            value={formData.effort}
             onChange={handleInputChange}
             min="1"
             max="365"
