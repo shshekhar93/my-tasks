@@ -60,6 +60,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
+    onClose();
   };
 
   return (
@@ -186,7 +187,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
 
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
           <button
-            type="button"
+            kind="button"
             onClick={onClose}
             style={{
               padding: '0.5rem 1rem',
@@ -200,7 +201,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
             Cancel
           </button>
           <button
-            type="submit"
+            kind="submit"
             style={{
               padding: '0.5rem 1rem',
               border: 'none',

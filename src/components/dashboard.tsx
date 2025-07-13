@@ -1,40 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CreateTaskModal from './tasks/create-task.tsx';
-import { Task, TaskFormData } from './tasks/types.ts';
-import { tasksManager } from '../db/tasks.ts';
 import { Navigation } from './common/navigation.tsx';
+import { useTaskManager } from '../hooks/tasks.ts';
+import TaskList from './tasks/tasks-list.tsx';
+import TaskFilters from './tasks/task-filters.tsx';
+import Button from './common/form/button.tsx';
 
 const Dashboard: React.FC = () => {
   const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
-  const [tasks, setTasks] = useState<Task[]>([]);
-
-  useEffect(() => {
-    tasksManager.getAllTasks().then(setTasks);
-  }, []);
-
-  const onTaskCreated = (task: TaskFormData) => {
-    tasksManager.addTask({
-      ...task, 
-      createdAt: Date.now(), 
-      updatedAt: Date.now()
-    });
-    setIsCreateTaskModalOpen(false);
-  };
+  const { tasks, createTask } = useTaskManager();
 
   return (
     <div>
       <Navigation>
-        <button onClick={() => setIsCreateTaskModalOpen(true)}>Create Task</button>
+        <Button onClick={() => setIsCreateTaskModalOpen(true)} label="Create Task" />
       </Navigation>
-      <main>
-        <h1>Tasks</h1>
-        <ul>
-          {tasks.map((task) => (
-            <li key={task.id}>{task.title}</li>
-          ))}
-        </ul>
+      <main style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        <TaskFilters />
+        <TaskList tasks={tasks} />
       </main>
-      <CreateTaskModal isOpen={isCreateTaskModalOpen} onClose={() => setIsCreateTaskModalOpen(false)} onSubmit={onTaskCreated} />
+      <CreateTaskModal isOpen={isCreateTaskModalOpen} onClose={() => setIsCreateTaskModalOpen(false)} onSubmit={createTask} />
     </div>
   );
 };

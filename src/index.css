@@ -7,6 +7,23 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --tertiary-color: #f8f9fa;
+  --border-color: #000;
+
+  --priority-p0: #ff0000;
+  --priority-p1: #ffa500;
+  --priority-p2: #ffff00;
+  --priority-p3: #0000ff;
+  --priority-p4: #00ff00;
+
+  --status-pending: #9a0000;
+  --status-in-progress: #9a8800;
+  --status-completed: #009a00;
+
+  --toggle-switch-color: #00cc00;
 }
 
 * {
@@ -15,4 +32,12 @@
 
 html, body {
   margin: 0
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+main {
+  padding: 1rem;
 }
