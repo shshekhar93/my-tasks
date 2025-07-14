@@ -22,7 +22,7 @@ export function useFilters() {
   });
 
   const updateFilter = (filter: keyof Filters, value: string | boolean) => {
-    setFilters({ ...filters, [filter]: value });
+    setFilters((prev) => ({ ...prev, [filter]: value }));
   }
 
   return { filters, updateFilter };
