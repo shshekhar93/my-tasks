@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
-import CreateTaskModal from './tasks/create-task.tsx';
+import CreateTaskModal from './tasks/task-form.tsx';
 import { Navigation } from './common/navigation.tsx';
 import { useTaskManager } from '../hooks/tasks.ts';
 import TaskList from './tasks/tasks-list.tsx';
 import TaskFilters from './tasks/task-filters.tsx';
 import Button from './common/form/button.tsx';
+import { Task } from './tasks/types.ts';
+import ViewTaskModal from './tasks/view-task.tsx';
 
 const Dashboard: React.FC = () => {
   const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
-  const { tasks, createTask } = useTaskManager();
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const { tasks, createTask, updateTask, deleteTask } = useTaskManager();
+
+  const closeModal = () => {
+    setSelectedTask(null);
+    setIsCreateTaskModalOpen(false);
+  };
 
   return (
     <div>
@@ -17,9 +25,20 @@ const Dashboard: React.FC = () => {
       </Navigation>
       <main style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <TaskFilters />
-        <TaskList tasks={tasks} />
+        <TaskList tasks={tasks} onSelect={setSelectedTask} />
       </main>
-      <CreateTaskModal isOpen={isCreateTaskModalOpen} onClose={() => setIsCreateTaskModalOpen(false)} onSubmit={createTask} />
+      <CreateTaskModal 
+        isOpen={isCreateTaskModalOpen}  
+        task={selectedTask}
+        onClose={closeModal} 
+        onSubmit={selectedTask ? (task) => updateTask(task as Task) : createTask} />
+      <ViewTaskModal 
+        isOpen={!!selectedTask} 
+        onClose={closeModal} 
+        task={selectedTask!}
+        onEdit={() => setIsCreateTaskModalOpen(true)}
+        onTransition={(task) => updateTask(task as Task)}
+        onDelete={() => deleteTask(selectedTask!)} />
     </div>
   );
 };

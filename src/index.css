@@ -13,14 +13,14 @@
   --tertiary-color: #f8f9fa;
   --border-color: #000;
 
-  --priority-p0: #ff0000;
-  --priority-p1: #ffa500;
-  --priority-p2: #ffff00;
-  --priority-p3: #0000ff;
-  --priority-p4: #00ff00;
+  --priority-p0: #e01010;
+  --priority-p1: #5c00ee;
+  --priority-p2: #9a9a00;
+  --priority-p3: #0079a9;
+  --priority-punknown: #b4b4b4;
 
-  --status-pending: #9a0000;
-  --status-in-progress: #9a8800;
+  --status-pending: #9a0a90;
+  --status-in-progress: #767676;
   --status-completed: #009a00;
 
   --toggle-switch-color: #00cc00;

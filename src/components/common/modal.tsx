@@ -8,6 +8,7 @@ interface ModalProps {
   children: React.ReactNode;
   labelledById?: string;
   describedById?: string;
+  style?: React.CSSProperties;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -17,6 +18,7 @@ const Modal: React.FC<ModalProps> = ({
   children,
   labelledById,
   describedById,
+  style,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const previouslyFocusedElement = useRef<HTMLElement | null>(null);
@@ -99,6 +101,7 @@ const Modal: React.FC<ModalProps> = ({
           minWidth: "300px",
           maxWidth: "90vw",
           maxHeight: "90vh",
+          ...style,
           overflowY: "auto",
           position: "relative",
         }}

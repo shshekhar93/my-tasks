@@ -4,9 +4,10 @@ import TaskCard from './task-card';
 
 interface TaskListProps {
   tasks: Task[];
+  onSelect: (task: Task) => void;
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, onSelect }) => {
   return (
     <div style={{ 
       display: 'flex', 
@@ -15,7 +16,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
       gap: '1rem' 
     }}>
       {tasks.map((task) => (
-        <TaskCard key={task.id} task={task} />
+        <TaskCard key={task.id} task={task} onClick={() => onSelect(task)} />
       ))}
     </div>
   );

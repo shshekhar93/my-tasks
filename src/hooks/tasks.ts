@@ -14,10 +14,21 @@ export function useTaskManager() {
     await tasksManager.addTask({
       ...task, 
       createdAt: Date.now(), 
-      updatedAt: Date.now()
+      updatedAt: Date.now(),
+      status: 'pending'
     });
     refresh();
   }
 
-  return { tasks, createTask };
+  const updateTask = async (task: Task) => {
+    await tasksManager.updateTask(task);
+    refresh();
+  }
+
+  const deleteTask = async (task: Task) => {
+    await tasksManager.removeTask(task.id);
+    refresh();
+  }
+
+  return { tasks, createTask, updateTask, deleteTask };
 }

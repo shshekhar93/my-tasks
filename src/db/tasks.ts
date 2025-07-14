@@ -79,6 +79,13 @@ export class TasksManager {
     }
     return this.db.put('tasks', task);
   }
+
+  async removeTask(id: number) {
+    if (!this.db) {
+      throw new Error('Database not open');
+    }
+    return this.db.delete('tasks', id);
+  }
 }
 
 export const tasksManager = new TasksManager();

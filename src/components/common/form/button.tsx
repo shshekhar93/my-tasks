@@ -8,6 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: React.FC<ButtonProps> = ({ label, type = 'primary', ...props }) => {
   return (
     <button {...props} style={{
+      ...props.style,
       backgroundColor: type === 'primary' ? 'var(--primary-color)' : type === 'secondary' ? 'var(--secondary-color)' : 'transparent',
       color: type === 'tertiary' ? 'var(--primary-color)' : 'white',
       textDecoration: type === 'tertiary' ? 'underline' : 'none',

@@ -2,7 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { getIDFromProps, getLabelWidth } from './utils';
 
 interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'value' | 'onChange' | 'label'> {
-  options: string[];
+  options: {
+    [key: string]: string;
+  };
   value: string;
   onChange: (value: string) => void;
   label?: string;
@@ -42,6 +44,7 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, label, labelA
           padding: '1.2rem 0.5rem 0.3rem',
           borderRadius: '0.25rem',
           fontSize: '1rem',
+          width: '100%',
           minWidth: `calc(${minWidth}px + 1rem)`,
           height: '3rem',
           border: `1px solid ${hasFocus ? 'var(--primary-color)' : 'var(--border-color)'}`,
@@ -51,8 +54,8 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, label, labelA
         value={value} 
         onChange={(e) => onChange(e.target.value)} 
       >
-        {options.map((option) => (
-          <option key={option} value={option}>{option}</option>
+        {Object.entries(options).map(([key, label]) => (
+          <option key={key} value={key}>{label}</option>
         ))}
       </select>
     </div>

@@ -2,7 +2,7 @@ export interface Task {
   id: number;
   title: string;
   description: string;
-  completed: boolean;
+  status: 'pending' | 'in-progress' | 'completed';
   dueDate: number;
   effort: number;
   priority: number;
@@ -12,4 +12,6 @@ export interface Task {
   updatedAt: number;
 }
 
-export type TaskFormData = Omit<Task, 'id' | 'createdAt' | 'updatedAt'>;
+export type TaskFormData = Omit<Task, 'id' | 'createdAt' | 'updatedAt'> & {
+  status?: 'pending' | 'in-progress' | 'completed';
+};
