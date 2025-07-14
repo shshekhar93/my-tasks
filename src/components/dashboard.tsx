@@ -7,10 +7,12 @@ import TaskFilters from './tasks/task-filters.tsx';
 import Button from './common/form/button.tsx';
 import { Task } from './tasks/types.ts';
 import ViewTaskModal from './tasks/view-task.tsx';
+import { useFilters } from './hooks/filters.ts';
 
 const Dashboard: React.FC = () => {
   const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const { filters, updateFilter } = useFilters();
   const { tasks, createTask, updateTask, deleteTask } = useTaskManager();
 
   const closeModal = () => {
@@ -24,7 +26,7 @@ const Dashboard: React.FC = () => {
         <Button onClick={() => setIsCreateTaskModalOpen(true)} label="Create Task" />
       </Navigation>
       <main style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-        <TaskFilters />
+        <TaskFilters filters={filters} updateFilter={updateFilter} />
         <TaskList tasks={tasks} onSelect={setSelectedTask} />
       </main>
       <CreateTaskModal 
