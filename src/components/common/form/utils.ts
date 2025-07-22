@@ -3,7 +3,7 @@ export const getLabelWidth = (id: string) => {
   return labelElement?.clientWidth ?? 0;
 };
 
-export const getIDFromProps = (props: { id?: string, name?: string }) => {
+export const getIDFromProps = (props: { id?: string; name?: string }) => {
   if (props.id) {
     return props.id;
   }

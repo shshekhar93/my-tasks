@@ -1,9 +1,9 @@
-import { useEffect, useReducer, useState } from "react";
-import { tasksManager } from "../db/tasks";
-import { Task, TaskFormData } from "../components/tasks/types";
+import { useEffect, useReducer, useState } from 'react';
+import { Task, TaskFormData } from '../components/tasks/types';
+import { tasksManager } from '../db/tasks';
 
 export function useTaskManager() {
-  const [deps, refresh] = useReducer((x) => x + 1, 0);
+  const [deps, refresh] = useReducer(x => x + 1, 0);
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
@@ -12,23 +12,23 @@ export function useTaskManager() {
 
   const createTask = async (task: TaskFormData) => {
     await tasksManager.addTask({
-      ...task, 
-      createdAt: Date.now(), 
+      ...task,
+      createdAt: Date.now(),
       updatedAt: Date.now(),
-      status: 'pending'
+      status: 'pending',
     });
     refresh();
-  }
+  };
 
   const updateTask = async (task: Task) => {
     await tasksManager.updateTask(task);
     refresh();
-  }
+  };
 
   const deleteTask = async (task: Task) => {
     await tasksManager.removeTask(task.id);
     refresh();
-  }
+  };
 
   return { tasks, createTask, updateTask, deleteTask };
 }

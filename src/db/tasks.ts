@@ -1,5 +1,5 @@
-import { DBSchema, IDBPDatabase, openDB } from "idb";
-import { Task } from "../components/tasks/types";
+import { DBSchema, IDBPDatabase, openDB } from 'idb';
+import { Task } from '../components/tasks/types';
 
 export interface TasksDBSchema extends DBSchema {
   tasks: {
@@ -13,11 +13,11 @@ export interface TasksDBSchema extends DBSchema {
       effort: number;
       priority: number;
       category: string;
-    }
-  }
+    };
+  };
 }
 
-export class TasksManager { 
+export class TasksManager {
   private db: IDBPDatabase<TasksDBSchema> | null = null;
 
   get isOpen() {
@@ -31,7 +31,7 @@ export class TasksManager {
   async open() {
     this.db = await openDB<TasksDBSchema>('tasks', 1, {
       upgrade: (db) => {
-        const store = db.createObjectStore('tasks', { 
+        const store = db.createObjectStore('tasks', {
           keyPath: 'id',
           autoIncrement: true,
         });
@@ -42,7 +42,7 @@ export class TasksManager {
         store.createIndex('effort', 'effort');
         store.createIndex('priority', 'priority');
         store.createIndex('category', 'category');
-      }
+      },
     });
   }
 

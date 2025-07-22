@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useStyletron } from 'styletron-react';
-import CreateTaskModal from './tasks/task-form.tsx';
-import { Navigation } from './common/navigation.tsx';
 import { useTaskManager } from '../hooks/tasks.ts';
-import TaskList from './tasks/tasks-list.tsx';
-import TaskFilters from './tasks/task-filters.tsx';
 import Button from './common/form/button.tsx';
+import { Navigation } from './common/navigation.tsx';
+import { useFilters } from './hooks/filters.ts';
+import TaskFilters from './tasks/task-filters.tsx';
+import CreateTaskModal from './tasks/task-form.tsx';
+import TaskList from './tasks/tasks-list.tsx';
 import { Task } from './tasks/types.ts';
 import ViewTaskModal from './tasks/view-task.tsx';
-import { useFilters } from './hooks/filters.ts';
 
 const Dashboard: React.FC = () => {
   const [css] = useStyletron();
@@ -31,18 +31,20 @@ const Dashboard: React.FC = () => {
         <TaskFilters filters={filters} updateFilter={updateFilter} clearFilters={clearFilters} />
         <TaskList tasks={tasks} onSelect={setSelectedTask} />
       </main>
-      <CreateTaskModal 
-        isOpen={isCreateTaskModalOpen}  
+      <CreateTaskModal
+        isOpen={isCreateTaskModalOpen}
         task={selectedTask}
-        onClose={closeModal} 
-        onSubmit={selectedTask ? (task) => updateTask(task as Task) : createTask} />
-      <ViewTaskModal 
-        isOpen={!!selectedTask} 
-        onClose={closeModal} 
+        onClose={closeModal}
+        onSubmit={selectedTask ? task => updateTask(task as Task) : createTask}
+      />
+      <ViewTaskModal
+        isOpen={!!selectedTask}
+        onClose={closeModal}
         task={selectedTask!}
         onEdit={() => setIsCreateTaskModalOpen(true)}
-        onTransition={(task) => updateTask(task as Task)}
-        onDelete={() => deleteTask(selectedTask!)} />
+        onTransition={task => updateTask(task as Task)}
+        onDelete={() => deleteTask(selectedTask!)}
+      />
     </div>
   );
 };

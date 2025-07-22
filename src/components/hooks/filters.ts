@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export type Filters = {
   status: string;
@@ -8,7 +8,7 @@ export type Filters = {
   searchText: string;
   showCompleted: boolean;
   showInProgress: boolean;
-}
+};
 
 const DEFAULT_FILTERS: Filters = {
   status: 'all',
@@ -18,18 +18,18 @@ const DEFAULT_FILTERS: Filters = {
   searchText: '',
   showCompleted: false,
   showInProgress: true,
-}
+};
 
 export function useFilters() {
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
 
   const updateFilter = (filter: keyof Filters, value: string | boolean) => {
-    setFilters((prev) => ({ ...prev, [filter]: value }));
-  }
+    setFilters(prev => ({ ...prev, [filter]: value }));
+  };
 
   const clearFilters = () => {
     setFilters(DEFAULT_FILTERS);
-  }
+  };
 
   return { filters, updateFilter, clearFilters };
 }

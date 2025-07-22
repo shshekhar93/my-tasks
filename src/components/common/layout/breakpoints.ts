@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const BREAKPOINTS = {
   small: '@media only screen and (max-width: 599px)',
@@ -13,7 +13,7 @@ export function useIsMobile() {
       setIsMobile(window.innerWidth < 600);
     };
     handleResize();
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);

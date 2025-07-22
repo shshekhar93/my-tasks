@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStyletron } from 'styletron-react';
-import { Task } from './types';
 import { useIsMobile } from '../common/layout/breakpoints';
+import { Task } from './types';
 
 interface TaskCardProps {
   task: Task;
@@ -14,7 +14,7 @@ const dateFormatter = new Intl.DateTimeFormat(undefined, {
 
 const formatDate = (date: number) => {
   return dateFormatter.format(new Date(date));
-}
+};
 
 const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
   const [css] = useStyletron();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStyletron } from 'styletron-react';
-import { Task } from './types';
 import TaskCard from './task-card';
+import { Task } from './types';
 
 interface TaskListProps {
   tasks: Task[];
@@ -17,7 +17,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onSelect }) => {
           No tasks, create one!
         </div>
       )}
-      {tasks.map((task) => (
+      {tasks.map(task => (
         <TaskCard key={task.id} task={task} onClick={() => onSelect(task)} />
       ))}
     </div>

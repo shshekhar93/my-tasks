@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useStyletron } from 'styletron-react';
-import Modal from '../common/modal.tsx';
-import { TaskFormData } from './types.ts';
-import Select from '../common/form/select.tsx';
 import { PRIORITY_OPTIONS, STATUS_OPTIONS } from '../../constants/filters.ts';
 import Input from '../common/form/input.tsx';
+import Select from '../common/form/select.tsx';
+import Modal from '../common/modal.tsx';
+import { TaskFormData } from './types.ts';
 
 interface CreateTaskModalProps {
   isOpen: boolean;
@@ -15,7 +15,7 @@ interface CreateTaskModalProps {
 
 function formatDate(date: number) {
   const dateObj = new Date(date);
-  if(isNaN(dateObj.getTime())) {
+  if (isNaN(dateObj.getTime())) {
     return '';
   }
   return `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 101).substring(1)}-${dateObj.getDate()}`;
@@ -43,19 +43,19 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
-  task
+  task,
 }) => {
   const [css] = useStyletron();
   const [formData, setFormData] = useState(defaultFormData);
 
   useEffect(() => {
-    if(isOpen) {
+    if (isOpen) {
       setFormData(task ?? defaultFormData());
     }
   }, [isOpen, task]);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -81,7 +81,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
       <div id="create-task-description">
         {task ? 'Edit the form below to update the task.' : 'Fill out the form below to create a new task.'}
       </div>
-      
+
       <form onSubmit={handleSubmit} className={css({ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' })}>
         <Input
           label="Title"
@@ -89,27 +89,31 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
           name="title"
           value={formData.title}
           onChange={handleInputChange}
-          required />
+          required
+        />
         <Input
           label="Description"
           id="description"
           name="description"
           value={formData.description}
           onChange={handleInputChange}
-          multiline />
+          multiline
+        />
         <Input
           label="Category"
           id="category"
           name="category"
           value={formData.category}
-          onChange={handleInputChange} />
+          onChange={handleInputChange}
+        />
         <Input
           label="ETA"
           id="dueDate"
           name="dueDate"
           type="date"
           value={formatDate(formData.dueDate)}
-          onChange={handleInputChange} />
+          onChange={handleInputChange}
+        />
         <Input
           label="Effort Estimate (days)"
           id="effort"
@@ -117,23 +121,27 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
           value={formData.effort.toString()}
           onChange={handleInputChange}
           min={1}
-          max={365} />
+          max={365}
+        />
         <Select
           label="Priority"
           id="priority"
           name="priority"
           value={formData.priority.toString()}
-          onChange={(value) => setFormData(prev => ({ ...prev, priority: parseInt(value) ?? 2 }))}
-          options={PRIORITY_OPTIONS} />
-        {task && 
-          <Select
-            label="Status"
-            id="status"
-            name="status"
-            value={formData.status ?? 'pending'}
-            onChange={(value) => setFormData(prev => ({ ...prev, status: value as 'pending' | 'in-progress' | 'completed' }))}
-            options={STATUS_OPTIONS} />
-        }
+          onChange={value => setFormData(prev => ({ ...prev, priority: parseInt(value) ?? 2 }))}
+          options={PRIORITY_OPTIONS}
+        />
+        {task
+          && (
+            <Select
+              label="Status"
+              id="status"
+              name="status"
+              value={formData.status ?? 'pending'}
+              onChange={value => setFormData(prev => ({ ...prev, status: value as 'pending' | 'in-progress' | 'completed' }))}
+              options={STATUS_OPTIONS}
+            />
+          )}
 
         <div className={css({ display: 'flex', gap: '1rem', justifyContent: 'flex-end' })}>
           <button

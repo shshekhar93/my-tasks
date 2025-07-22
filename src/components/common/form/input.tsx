@@ -23,20 +23,23 @@ const Input: React.FC<InputProps> = ({ label, labelAnimation = true, multiline =
 
   return (
     <div className={css({ position: 'relative' })}>
-      {label && 
-        <label 
-          htmlFor={id} 
-          className={css({
-            position: 'absolute',
-            top: showLargeLabel ? '0.75rem' : '2px',
-            left: '2px',
-            padding: '0 0.5rem',
-            fontSize: showLargeLabel ? '1rem' : '0.8rem',
-            fontWeight: 600,
-            transition: 'font-size 0.1s linear, top 0.1s linear',
-          })}
-        >{label}</label>
-      }
+      {label
+        && (
+          <label
+            htmlFor={id}
+            className={css({
+              position: 'absolute',
+              top: showLargeLabel ? '0.75rem' : '2px',
+              left: '2px',
+              padding: '0 0.5rem',
+              fontSize: showLargeLabel ? '1rem' : '0.8rem',
+              fontWeight: 600,
+              transition: 'font-size 0.1s linear, top 0.1s linear',
+            })}
+          >
+            {label}
+          </label>
+        )}
       <Component
         {...props}
         id={id}
@@ -51,11 +54,11 @@ const Input: React.FC<InputProps> = ({ label, labelAnimation = true, multiline =
           border: `1px solid ${hasFocus ? 'var(--primary-color)' : 'var(--border-color)'}`,
           outline: 'none',
         })}
-        onFocus={(e: React.FocusEvent<any>) => {
+        onFocus={(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
           setHasFocus(true);
           props.onFocus?.(e);
         }}
-        onBlur={(e: React.FocusEvent<any>) => {
+        onBlur={(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
           setHasFocus(false);
           props.onBlur?.(e);
         }}

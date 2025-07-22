@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import { StyleObject, useStyletron } from 'styletron-react';
 
 interface ModalProps {
@@ -31,14 +31,15 @@ const Modal: React.FC<ModalProps> = ({
       // Focus the modal
       modalRef.current?.focus();
       // Prevent background scroll
-      document.body.style.overflow = "hidden";
-    } else {
+      document.body.style.overflow = 'hidden';
+    }
+    else {
       // Restore focus
       previouslyFocusedElement.current?.focus();
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     }
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     };
   }, [isOpen]);
 
@@ -46,12 +47,13 @@ const Modal: React.FC<ModalProps> = ({
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         e.stopPropagation();
         onClose();
-      } else if (e.key === "Tab") {
+      }
+      else if (e.key === 'Tab') {
         const focusableEls = modalRef.current?.querySelectorAll<HTMLElement>(
-          'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])',
         );
         if (!focusableEls || focusableEls.length === 0) return;
         const firstEl = focusableEls[0];
@@ -59,14 +61,15 @@ const Modal: React.FC<ModalProps> = ({
         if (!e.shiftKey && document.activeElement === lastEl) {
           e.preventDefault();
           firstEl.focus();
-        } else if (e.shiftKey && document.activeElement === firstEl) {
+        }
+        else if (e.shiftKey && document.activeElement === firstEl) {
           e.preventDefault();
           lastEl.focus();
         }
       }
     };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
@@ -75,35 +78,35 @@ const Modal: React.FC<ModalProps> = ({
     <div
       role="dialog"
       aria-modal="true"
-      aria-labelledby={labelledById || "modal-title"}
+      aria-labelledby={labelledById || 'modal-title'}
       aria-describedby={describedById}
       tabIndex={-1}
       ref={modalRef}
       className={css({
-        position: "fixed",
+        position: 'fixed',
         top: 0,
         left: 0,
-        width: "100vw",
-        height: "100vh",
-        background: "rgba(0,0,0,0.5)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        width: '100vw',
+        height: '100vh',
+        background: 'rgba(0,0,0,0.5)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         zIndex: 1000,
       })}
       onClick={onClose}
     >
       <div
         className={css({
-          background: "#fff",
-          padding: "2rem",
-          borderRadius: "8px",
-          minWidth: "300px",
-          maxWidth: "90vw",
-          maxHeight: "90vh",
+          background: '#fff',
+          padding: '2rem',
+          borderRadius: '8px',
+          minWidth: '300px',
+          maxWidth: '90vw',
+          maxHeight: '90vh',
           ...style,
-          overflowY: "auto",
-          position: "relative",
+          overflowY: 'auto',
+          position: 'relative',
         })}
         onClick={e => e.stopPropagation()}
       >
@@ -111,22 +114,22 @@ const Modal: React.FC<ModalProps> = ({
           onClick={onClose}
           aria-label="Close modal"
           className={css({
-            position: "absolute",
-            top: "1rem",
-            right: "1rem",
-            background: "none",
-            border: "none",
-            fontSize: "1.5rem",
-            cursor: "pointer",
+            position: 'absolute',
+            top: '1rem',
+            right: '1rem',
+            background: 'none',
+            border: 'none',
+            fontSize: '1.5rem',
+            cursor: 'pointer',
           })}
         >
           &times;
         </button>
-        <h2 id={labelledById || "modal-title"}>{title}</h2>
+        <h2 id={labelledById || 'modal-title'}>{title}</h2>
         <div id={describedById}>{children}</div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 };
 

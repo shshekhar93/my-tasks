@@ -26,20 +26,23 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, label, labelA
 
   return (
     <div className={css({ position: 'relative' })}>
-      {label && 
-        <label 
-          htmlFor={id} 
-          className={css({
-            position: 'absolute',
-            top: '2px',
-            left: '2px',
-            padding: '0 0.5rem',
-            fontSize: showLargeLabel ? '1rem' : '0.8rem',
-            fontWeight: 600
-          })}
-        >{label}</label>
-      }
-      <select 
+      {label
+        && (
+          <label
+            htmlFor={id}
+            className={css({
+              position: 'absolute',
+              top: '2px',
+              left: '2px',
+              padding: '0 0.5rem',
+              fontSize: showLargeLabel ? '1rem' : '0.8rem',
+              fontWeight: 600,
+            })}
+          >
+            {label}
+          </label>
+        )}
+      <select
         {...props}
         id={id}
         className={css({
@@ -61,8 +64,8 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, label, labelA
           setHasFocus(false);
           props.onBlur?.(e);
         }}
-        value={value} 
-        onChange={(e) => onChange(e.target.value)} 
+        value={value}
+        onChange={e => onChange(e.target.value)}
       >
         {Object.entries(options).map(([key, label]) => (
           <option key={key} value={key}>{label}</option>

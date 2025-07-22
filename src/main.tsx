@@ -1,12 +1,11 @@
-import React, { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.js'
-import { Provider as StyletronProvider } from 'styletron-react';
+import React, { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import { Client as Styletron } from 'styletron-engine-atomic';
+import { Provider as StyletronProvider } from 'styletron-react';
+import App from './App.js';
+import './index.css';
 
 const engine = new Styletron();
-
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -14,4 +13,4 @@ createRoot(document.getElementById('root')!).render(
       <App />
     </StyletronProvider>
   </StrictMode>,
-)
+);
