@@ -1,4 +1,5 @@
 import React from "react";
+import { useStyletron } from 'styletron-react';
 import { Task } from "./types";
 import Modal from "../common/modal";
 import Button from "../common/form/button";
@@ -29,6 +30,7 @@ const nextStatus: Record<Task['status'], Task['status'] | null> = {
 };
 
 const ViewTask: React.FC<ViewTaskProps> = ({ task, isOpen, onClose, onEdit, onTransition, onDelete }) => {
+  const [css] = useStyletron();
   if (!isOpen) return null;
 
   const CTALabel = statusToCTAMap[task.status] ?? statusToCTAMap.pending;
@@ -47,28 +49,19 @@ const ViewTask: React.FC<ViewTaskProps> = ({ task, isOpen, onClose, onEdit, onTr
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="" labelledById="view-task-title" describedById="view-task-description" style={{ width: '500px' }}>
-      <div style={{ 
-        display: 'flex', 
-        flexDirection: 'column',
-        gap: '1rem'
-      }}>
-        <div id="view-task-title" style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>
+      <div className={css({ display: 'flex', flexDirection: 'column', gap: '1rem' })}>
+        <div id="view-task-title" className={css({ fontSize: '1.25rem', fontWeight: 'bold' })}>
           {task.title}
         </div>
         <div id="view-task-description">
-          <p style={{ marginBottom: '1rem' }}>{task.description}</p>
+          <p className={css({ marginBottom: '1rem' })}>{task.description}</p>
           <p><b>Due Date:</b> {dateFormatter.format(new Date(task.dueDate))}</p>
           <p><b>Effort:</b> {task.effort}</p>
           <p><b>Priority:</b> {task.priority}</p>
           <p><b>Status:</b> {task.status || 'pending'}</p>
         </div>
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column',
-          gap: '0.5rem',
-          justifyContent: 'center' 
-        }}>
-          <div style={{ display: 'flex', gap: '0.5rem' }}>
+        <div className={css({ display: 'flex', flexDirection: 'column', gap: '0.5rem', justifyContent: 'center' })}>
+          <div className={css({ display: 'flex', gap: '0.5rem' })}>
             {task.status !== 'completed' && <Button 
               type="secondary" 
               onClick={onEdit} 

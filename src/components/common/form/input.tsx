@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { StyleObject, useStyletron } from 'styletron-react';
 import { getIDFromProps, getLabelWidth } from './utils';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
@@ -8,6 +9,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement | HTMLTe
 }
 
 const Input: React.FC<InputProps> = ({ label, labelAnimation = true, multiline = false, ...props }) => {
+  const [css] = useStyletron();
   const id = useMemo(() => getIDFromProps(props), [props.id, props.name]);
   const [minWidth, setMinWidth] = useState<number>(0);
   const [hasFocus, setHasFocus] = useState(false);
@@ -20,25 +22,26 @@ const Input: React.FC<InputProps> = ({ label, labelAnimation = true, multiline =
   }, [id]);
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className={css({ position: 'relative' })}>
       {label && 
         <label 
           htmlFor={id} 
-          style={{ 
-            position: 'absolute', 
-            top: showLargeLabel ? '0.75rem' : 2, 
-            left: 2, 
-            padding: '0 0.5rem', 
-            fontSize: showLargeLabel ? '1rem' : '0.8rem', 
-            fontWeight: '600',
+          className={css({
+            position: 'absolute',
+            top: showLargeLabel ? '0.75rem' : '2px',
+            left: '2px',
+            padding: '0 0.5rem',
+            fontSize: showLargeLabel ? '1rem' : '0.8rem',
+            fontWeight: 600,
             transition: 'font-size 0.1s linear, top 0.1s linear',
-          }}>{label}</label>
+          })}
+        >{label}</label>
       }
       <Component
         {...props}
         id={id}
-        style={{
-          ...props.style,
+        className={css({
+          ...(props.style as StyleObject),
           padding: '1.2rem 0.5rem 0.3rem',
           borderRadius: '0.25rem',
           fontSize: '1rem',
@@ -46,9 +49,17 @@ const Input: React.FC<InputProps> = ({ label, labelAnimation = true, multiline =
           width: '100%',
           height: '3rem',
           border: `1px solid ${hasFocus ? 'var(--primary-color)' : 'var(--border-color)'}`,
+          outline: 'none',
+        })}
+        onFocus={(e: React.FocusEvent<any>) => {
+          setHasFocus(true);
+          props.onFocus?.(e);
         }}
-        onFocus={() => setHasFocus(true)}
-        onBlur={() => setHasFocus(false)} />
+        onBlur={(e: React.FocusEvent<any>) => {
+          setHasFocus(false);
+          props.onBlur?.(e);
+        }}
+      />
     </div>
   );
 };

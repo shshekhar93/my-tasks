@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useStyletron } from 'styletron-react';
 import Modal from '../common/modal.tsx';
 import { TaskFormData } from './types.ts';
 import Select from '../common/form/select.tsx';
@@ -44,6 +45,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
   onSubmit,
   task
 }) => {
+  const [css] = useStyletron();
   const [formData, setFormData] = useState(defaultFormData);
 
   useEffect(() => {
@@ -56,7 +58,6 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    console.log(name, value, (mappers[name as keyof typeof mappers] || mappers.default)(value));
     setFormData(prev => ({
       ...prev,
       [name]: (mappers[name as keyof typeof mappers] || mappers.default)(value),
@@ -81,7 +82,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
         {task ? 'Edit the form below to update the task.' : 'Fill out the form below to create a new task.'}
       </div>
       
-      <form onSubmit={handleSubmit} style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+      <form onSubmit={handleSubmit} className={css({ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' })}>
         <Input
           label="Title"
           id="title"
@@ -134,24 +135,24 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
             options={STATUS_OPTIONS} />
         }
 
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
+        <div className={css({ display: 'flex', gap: '1rem', justifyContent: 'flex-end' })}>
           <button
             kind="button"
             onClick={onClose}
-            style={{
+            className={css({
               padding: '0.5rem 1rem',
               border: '1px solid #ccc',
               borderRadius: '4px',
               background: '#f8f9fa',
               cursor: 'pointer',
               fontSize: '1rem',
-            }}
+            })}
           >
             Cancel
           </button>
           <button
             kind="submit"
-            style={{
+            className={css({
               padding: '0.5rem 1rem',
               border: 'none',
               borderRadius: '4px',
@@ -159,7 +160,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
               color: 'white',
               cursor: 'pointer',
               fontSize: '1rem',
-            }}
+            })}
           >
             {task ? 'Update Task' : 'Create Task'}
           </button>

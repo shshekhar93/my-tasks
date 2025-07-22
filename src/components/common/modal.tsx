@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
+import { StyleObject, useStyletron } from 'styletron-react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -8,7 +9,7 @@ interface ModalProps {
   children: React.ReactNode;
   labelledById?: string;
   describedById?: string;
-  style?: React.CSSProperties;
+  style?: StyleObject;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -20,6 +21,7 @@ const Modal: React.FC<ModalProps> = ({
   describedById,
   style,
 }) => {
+  const [css] = useStyletron();
   const modalRef = useRef<HTMLDivElement>(null);
   const previouslyFocusedElement = useRef<HTMLElement | null>(null);
 
@@ -77,8 +79,7 @@ const Modal: React.FC<ModalProps> = ({
       aria-describedby={describedById}
       tabIndex={-1}
       ref={modalRef}
-      className="modal-overlay"
-      style={{
+      className={css({
         position: "fixed",
         top: 0,
         left: 0,
@@ -89,12 +90,11 @@ const Modal: React.FC<ModalProps> = ({
         alignItems: "center",
         justifyContent: "center",
         zIndex: 1000,
-      }}
+      })}
       onClick={onClose}
     >
       <div
-        className="modal-content"
-        style={{
+        className={css({
           background: "#fff",
           padding: "2rem",
           borderRadius: "8px",
@@ -104,13 +104,13 @@ const Modal: React.FC<ModalProps> = ({
           ...style,
           overflowY: "auto",
           position: "relative",
-        }}
+        })}
         onClick={e => e.stopPropagation()}
       >
         <button
           onClick={onClose}
           aria-label="Close modal"
-          style={{
+          className={css({
             position: "absolute",
             top: "1rem",
             right: "1rem",
@@ -118,7 +118,7 @@ const Modal: React.FC<ModalProps> = ({
             border: "none",
             fontSize: "1.5rem",
             cursor: "pointer",
-          }}
+          })}
         >
           &times;
         </button>

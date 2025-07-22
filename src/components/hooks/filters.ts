@@ -10,20 +10,26 @@ export type Filters = {
   showInProgress: boolean;
 }
 
+const DEFAULT_FILTERS: Filters = {
+  status: 'all',
+  priority: 'all',
+  dueBefore: null,
+  dueAfter: null,
+  searchText: '',
+  showCompleted: false,
+  showInProgress: true,
+}
+
 export function useFilters() {
-  const [filters, setFilters] = useState<Filters>({
-    status: 'all',
-    priority: 'all',
-    dueBefore: null,
-    dueAfter: null,
-    searchText: '',
-    showCompleted: false,
-    showInProgress: true,
-  });
+  const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
 
   const updateFilter = (filter: keyof Filters, value: string | boolean) => {
     setFilters((prev) => ({ ...prev, [filter]: value }));
   }
 
-  return { filters, updateFilter };
+  const clearFilters = () => {
+    setFilters(DEFAULT_FILTERS);
+  }
+
+  return { filters, updateFilter, clearFilters };
 }
