@@ -48,7 +48,7 @@ const TaskFilters: React.FC<TaskFiltersProps> = ({
         )}
       {(!isMobile || isExpanded) && (
         <>
-          <Flex flexDirection={['row', 'column']} gap="1rem">
+          <Flex flexDirection={['row', 'column']} wrap gap="1rem">
             <Select name="status" id="status" label="Status" options={STATUS_FILTER_OPTIONS} value={filters.status} onChange={value => updateFilter('status', value)} />
             <Select name="priority" id="priority" label="Priority" options={PRIORITY_FILTER_OPTIONS} value={filters.priority} onChange={value => updateFilter('priority', value)} />
             <Input label="Due after" type="date" name="dueAfter" id="dueAfter" labelAnimation={false} value={filters.dueAfter ?? ''} onChange={e => updateFilter('dueAfter', e.target.value)} />

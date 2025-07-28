@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { StyleObject, useStyletron } from 'styletron-react';
+import { useIsMobile } from './layout/breakpoints';
 
 interface ModalProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ const Modal: React.FC<ModalProps> = ({
   const [css] = useStyletron();
   const modalRef = useRef<HTMLDivElement>(null);
   const previouslyFocusedElement = useRef<HTMLElement | null>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (isOpen) {
@@ -102,8 +104,10 @@ const Modal: React.FC<ModalProps> = ({
           padding: '2rem',
           borderRadius: '8px',
           minWidth: '300px',
-          maxWidth: '90vw',
-          maxHeight: '90vh',
+          maxWidth: isMobile ? '100vw' : '90vw',
+          maxHeight: isMobile ? '100vh' : '90vh',
+          width: isMobile ? '100vw' : undefined,
+          height: isMobile ? '100vh' : undefined,
           ...style,
           overflowY: 'auto',
           position: 'relative',

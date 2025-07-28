@@ -25,8 +25,7 @@ export function TaskLists({ tasks, onSelect }: TaskListsProp) {
   return (
     <div className={css({
       display: 'flex',
-      flexDirection: 'row',
-      flexWrap: 'wrap',
+      flexDirection: 'column',
       gap: '1rem',
     })}
     >

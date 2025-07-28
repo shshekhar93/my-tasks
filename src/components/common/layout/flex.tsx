@@ -10,6 +10,7 @@ type FlexProps = {
   flexDirection?: FlexDirection | FlexDirection[];
   justifyContent?: FlexJustifyContent | FlexJustifyContent[];
   alignItems?: FlexAlignItems | FlexAlignItems[];
+  wrap?: boolean;
   gap?: string | string[];
 };
 
@@ -18,6 +19,7 @@ export function Flex({
   flexDirection = 'row',
   justifyContent = 'flex-start',
   alignItems = 'stretch',
+  wrap,
   gap = '0',
   ...props
 }: JSX.IntrinsicElements['div'] & FlexProps) {
@@ -36,6 +38,7 @@ export function Flex({
         justifyContent: justifyContentValue[0],
         alignItems: alignItemsValue[0],
         gap: gapValue[0],
+        flexWrap: wrap === true ? 'wrap' : undefined,
 
         [BREAKPOINTS.small]: {
           flexDirection: flexDirectionValue[1] ?? flexDirectionValue[0],

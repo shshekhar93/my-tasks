@@ -10,6 +10,7 @@ export function useIsMobile() {
 
   useEffect(() => {
     const handleResize = () => {
+      console.log(window.innerWidth, window.innerWidth < 600);
       setIsMobile(window.innerWidth < 600);
     };
     handleResize();
