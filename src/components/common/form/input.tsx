@@ -51,7 +51,7 @@ const Input: React.FC<InputProps> = ({ label, labelAnimation = true, multiline =
           minWidth: `calc(${minWidth}px + 1rem)`,
           width: '100%',
           height: '3rem',
-          border: `1px solid ${hasFocus ? 'var(--primary-color)' : 'var(--border-color)'}`,
+          border: `${hasFocus ? 2 : 1}px solid ${hasFocus ? 'var(--primary-color)' : 'var(--border-color)'}`,
           outline: 'none',
         })}
         onFocus={(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {

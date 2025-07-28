@@ -8,15 +8,6 @@ export function applyTaskFilters(tasks: Task[], filters: Filters) {
   const priorityFilter = createPriorityFilter(filters);
   const dueDateFilter = createDueDateFilter(filters);
 
-  let filtered = tasks;
-  console.log('All tasks', filtered);
-  // filtered = filtered.filter(statusFilter);
-  // console.log('After status', filtered);
-  filtered = filtered.filter(priorityFilter);
-  console.log('After priority', filtered);
-  filtered = filtered.filter(dueDateFilter);
-  console.log('After due date filter', filtered);
-
   return tasks.filter(statusFilter)
     .filter(priorityFilter)
     .filter(dueDateFilter);

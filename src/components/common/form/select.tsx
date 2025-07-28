@@ -53,7 +53,7 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, label, labelA
           width: '100%',
           minWidth: `calc(${minWidth}px + 1rem)`,
           height: '3rem',
-          border: `1px solid ${hasFocus ? 'var(--primary-color)' : 'var(--border-color)'}`,
+          border: `${hasFocus ? 2 : 1}px solid ${hasFocus ? 'var(--primary-color)' : 'var(--border-color)'}`,
           outline: 'none',
         })}
         onFocus={(e) => {

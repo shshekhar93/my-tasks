@@ -1,5 +1,6 @@
 import { DBSchema, IDBPDatabase, openDB } from 'idb';
 import { Task } from '../components/tasks/types';
+import { downloadToFile, readFile } from '../utils/utils';
 
 export interface TasksDBSchema extends DBSchema {
   tasks: {
@@ -85,6 +86,40 @@ export class TasksManager {
       throw new Error('Database not open');
     }
     return this.db.delete('tasks', id);
+  }
+
+  async backup() {
+    if (!this.db) {
+      throw new Error('Database not open');
+    }
+
+    const allTasks = await this.db?.getAll('tasks');
+    downloadToFile(JSON.stringify(allTasks, null, 2));
+  }
+
+  async restore() {
+    if (!this.db) {
+      throw new Error('Database not open');
+    }
+
+    try {
+      const tasksToRestore = JSON.parse(await readFile()) as Task[];
+      if ((await this.getAllTasks()).length !== 0) {
+        const confirmation = window.confirm('All existing tasks will be permanently deleted. Are you sure?');
+        if (!confirmation) {
+          return;
+        }
+      }
+      await this.db.clear('tasks');
+      console.log('Clear complete');
+      for (const aTask of tasksToRestore) {
+        await this.db.add('tasks', aTask);
+      }
+      console.log('restore complete');
+    }
+    catch (e) {
+      window.alert((e as Error).message);
+    }
   }
 }
 

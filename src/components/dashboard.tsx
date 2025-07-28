@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useTaskManager } from '../hooks/tasks.ts';
 import { applyTaskFilters } from '../utils/task-filters.ts';
-import Button from './common/form/button.tsx';
 import { Flex } from './common/layout/flex.tsx';
+import { Menu } from './common/menu.tsx';
 import { Navigation } from './common/navigation.tsx';
 import { useFilters } from './hooks/filters.ts';
 import TaskFilters from './tasks/task-filters.tsx';
@@ -15,7 +15,7 @@ const Dashboard: React.FC = () => {
   const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const { filters, updateFilter, clearFilters } = useFilters();
-  const { tasks, createTask, updateTask, deleteTask } = useTaskManager();
+  const { tasks, createTask, updateTask, deleteTask, backupTasks, restoreTasks } = useTaskManager();
   const filteredTasks = applyTaskFilters(tasks, filters);
 
   const closeModal = () => {
@@ -26,7 +26,11 @@ const Dashboard: React.FC = () => {
   return (
     <div>
       <Navigation>
-        <Button onClick={() => setIsCreateTaskModalOpen(true)} label="Create Task" />
+        <Menu
+          openCreateTaskModal={() => setIsCreateTaskModalOpen(true)}
+          createBackup={backupTasks}
+          restoreBackup={restoreTasks}
+        />
       </Navigation>
       <Flex as="main" flexDirection="column" gap="0.5rem">
         <TaskFilters filters={filters} updateFilter={updateFilter} clearFilters={clearFilters} />

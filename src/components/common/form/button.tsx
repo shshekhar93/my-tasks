@@ -25,6 +25,7 @@ const Button: React.FC<ButtonProps> = ({ label, type = 'primary', ...props }) =>
         border: 'none',
         cursor: 'pointer',
         fontSize: '1rem',
+        textAlign: type === 'tertiary' ? 'left' : 'center',
       })}
     >
       {label}

@@ -30,5 +30,15 @@ export function useTaskManager() {
     refresh();
   };
 
-  return { tasks, createTask, updateTask, deleteTask };
+  const backupTasks = async () => {
+    await tasksManager.backup();
+    refresh();
+  };
+
+  const restoreTasks = async () => {
+    await tasksManager.restore();
+    refresh();
+  };
+
+  return { tasks, createTask, updateTask, deleteTask, backupTasks, restoreTasks };
 }
