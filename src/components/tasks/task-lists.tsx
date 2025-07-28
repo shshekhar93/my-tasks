@@ -1,5 +1,6 @@
 import React from 'react';
 import { useStyletron } from 'styletron-react';
+import { Flex } from '../common/layout/flex';
 import TaskList from './tasks-list';
 import { Task } from './types';
 
@@ -23,12 +24,7 @@ export function TaskLists({ tasks, onSelect }: TaskListsProp) {
   }
 
   return (
-    <div className={css({
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '1rem',
-    })}
-    >
+    <Flex flexDirection="column" gap="1rem">
       {inProgressTasks.length > 0 && (
         <TaskList
           title="In progress"
@@ -62,6 +58,6 @@ export function TaskLists({ tasks, onSelect }: TaskListsProp) {
           }}
         />
       )}
-    </div>
+    </Flex>
   );
 }

@@ -30,14 +30,21 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }
 
 main {
-  padding: 1rem;
+  padding: calc(70px + 1rem) 1rem 1rem;
 }

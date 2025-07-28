@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { StyleObject, useStyletron } from 'styletron-react';
 import { useIsMobile } from './layout/breakpoints';
+import { Flex } from './layout/flex';
 
 interface ModalProps {
   isOpen: boolean;
@@ -77,7 +78,9 @@ const Modal: React.FC<ModalProps> = ({
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div
+    <Flex
+      alignItems="center"
+      justifyContent="center"
       role="dialog"
       aria-modal="true"
       aria-labelledby={labelledById || 'modal-title'}
@@ -91,9 +94,6 @@ const Modal: React.FC<ModalProps> = ({
         width: '100vw',
         height: '100vh',
         background: 'rgba(0,0,0,0.5)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         zIndex: 1000,
       })}
       onClick={onClose}
@@ -132,7 +132,7 @@ const Modal: React.FC<ModalProps> = ({
         <h2 id={labelledById || 'modal-title'}>{title}</h2>
         <div id={describedById}>{children}</div>
       </div>
-    </div>,
+    </Flex>,
     document.body,
   );
 };

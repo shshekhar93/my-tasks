@@ -1,6 +1,7 @@
 import React from 'react';
 import { useStyletron } from 'styletron-react';
 import Button from '../common/form/button';
+import { Flex } from '../common/layout/flex';
 import Modal from '../common/modal';
 import { Task } from './types';
 
@@ -49,7 +50,7 @@ const ViewTask: React.FC<ViewTaskProps> = ({ task, isOpen, onClose, onEdit, onTr
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="" labelledById="view-task-title" describedById="view-task-description" style={{ width: '500px' }}>
-      <div className={css({ display: 'flex', flexDirection: 'column', gap: '1rem' })}>
+      <Flex flexDirection="column" gap="1rem">
         <div id="view-task-title" className={css({ fontSize: '1.25rem', fontWeight: 'bold' })}>
           {task.title}
         </div>
@@ -76,8 +77,8 @@ const ViewTask: React.FC<ViewTaskProps> = ({ task, isOpen, onClose, onEdit, onTr
             {task.status || 'pending'}
           </p>
         </div>
-        <div className={css({ display: 'flex', flexDirection: 'column', gap: '0.5rem', justifyContent: 'center' })}>
-          <div className={css({ display: 'flex', gap: '0.5rem' })}>
+        <Flex flexDirection="column" gap="0.5rem" justifyContent="center">
+          <Flex gap="0.5rem">
             {task.status !== 'completed' && (
               <Button
                 type="secondary"
@@ -92,14 +93,14 @@ const ViewTask: React.FC<ViewTaskProps> = ({ task, isOpen, onClose, onEdit, onTr
               label={CTALabel}
               style={{ flex: 1 }}
             />
-          </div>
+          </Flex>
           <Button
             type="tertiary"
             onClick={handleDelete}
             label="Delete"
           />
-        </div>
-      </div>
+        </Flex>
+      </Flex>
     </Modal>
   );
 };

@@ -7,6 +7,7 @@ type FlexJustifyContent = StyleObject['justifyContent'];
 type FlexAlignItems = StyleObject['alignItems'];
 
 type FlexProps = {
+  as?: keyof JSX.IntrinsicElements;
   flexDirection?: FlexDirection | FlexDirection[];
   justifyContent?: FlexJustifyContent | FlexJustifyContent[];
   alignItems?: FlexAlignItems | FlexAlignItems[];
@@ -14,7 +15,8 @@ type FlexProps = {
   gap?: string | string[];
 };
 
-export function Flex({
+export function Flex<T extends 'div' | 'form' = 'div'>({
+  as: Component = 'div',
   children,
   flexDirection = 'row',
   justifyContent = 'flex-start',
@@ -22,17 +24,18 @@ export function Flex({
   wrap,
   gap = '0',
   ...props
-}: JSX.IntrinsicElements['div'] & FlexProps) {
+}: JSX.IntrinsicElements[T] & FlexProps) {
   const [css] = useStyletron();
   const flexDirectionValue = Array.isArray(flexDirection) ? flexDirection : [flexDirection];
   const justifyContentValue = Array.isArray(justifyContent) ? justifyContent : [justifyContent];
   const alignItemsValue = Array.isArray(alignItems) ? alignItems : [alignItems];
   const gapValue = Array.isArray(gap) ? gap : [gap];
 
-  return (
-    <div
-      {...props}
-      className={[props.className, css({
+  return React.createElement(
+    Component,
+    {
+      ...props,
+      className: [props.className, css({
         display: 'flex',
         flexDirection: flexDirectionValue[0],
         justifyContent: justifyContentValue[0],
@@ -46,9 +49,8 @@ export function Flex({
           alignItems: alignItemsValue[1] ?? alignItemsValue[0],
           gap: gapValue[1] ?? gapValue[0],
         },
-      })].filter(Boolean).join(' ')}
-    >
-      {children}
-    </div>
+      })].filter(Boolean).join(' '),
+    },
+    children,
   );
 }

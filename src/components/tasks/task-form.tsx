@@ -3,6 +3,7 @@ import { useStyletron } from 'styletron-react';
 import { PRIORITY_OPTIONS, STATUS_OPTIONS } from '../../constants/filters.ts';
 import Input from '../common/form/input.tsx';
 import Select from '../common/form/select.tsx';
+import { Flex } from '../common/layout/flex.tsx';
 import Modal from '../common/modal.tsx';
 import { TaskFormData } from './types.ts';
 
@@ -82,7 +83,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
         {task ? 'Edit the form below to update the task.' : 'Fill out the form below to create a new task.'}
       </div>
 
-      <form onSubmit={handleSubmit} className={css({ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' })}>
+      <Flex as="form" flexDirection="column" gap="1rem" onSubmit={handleSubmit} className={css({ marginTop: '1rem' })}>
         <Input
           label="Title"
           id="title"
@@ -143,7 +144,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
             />
           )}
 
-        <div className={css({ display: 'flex', gap: '1rem', justifyContent: 'flex-end' })}>
+        <Flex gap="1rem" justifyContent="flex-end">
           <button
             kind="button"
             onClick={onClose}
@@ -172,8 +173,8 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
           >
             {task ? 'Update Task' : 'Create Task'}
           </button>
-        </div>
-      </form>
+        </Flex>
+      </Flex>
     </Modal>
   );
 };
