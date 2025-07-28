@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useStyletron } from 'styletron-react';
 import { useTaskManager } from '../hooks/tasks.ts';
+import { applyTaskFilters } from '../utils/task-filters.ts';
 import Button from './common/form/button.tsx';
 import { Navigation } from './common/navigation.tsx';
 import { useFilters } from './hooks/filters.ts';
 import TaskFilters from './tasks/task-filters.tsx';
 import CreateTaskModal from './tasks/task-form.tsx';
-import TaskList from './tasks/tasks-list.tsx';
+import { TaskLists } from './tasks/task-lists.tsx';
 import { Task } from './tasks/types.ts';
 import ViewTaskModal from './tasks/view-task.tsx';
 
@@ -16,6 +17,7 @@ const Dashboard: React.FC = () => {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const { filters, updateFilter, clearFilters } = useFilters();
   const { tasks, createTask, updateTask, deleteTask } = useTaskManager();
+  const filteredTasks = applyTaskFilters(tasks, filters);
 
   const closeModal = () => {
     setSelectedTask(null);
@@ -29,7 +31,7 @@ const Dashboard: React.FC = () => {
       </Navigation>
       <main className={css({ display: 'flex', flexDirection: 'column', gap: '0.5rem' })}>
         <TaskFilters filters={filters} updateFilter={updateFilter} clearFilters={clearFilters} />
-        <TaskList tasks={tasks} onSelect={setSelectedTask} />
+        <TaskLists tasks={filteredTasks} onSelect={setSelectedTask} />
       </main>
       <CreateTaskModal
         isOpen={isCreateTaskModalOpen}

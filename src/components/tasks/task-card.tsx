@@ -23,7 +23,6 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
   return (
     <div
       className={css({
-        position: 'relative',
         padding: '1rem',
         borderRadius: '0.5rem',
         display: 'inline-flex',
@@ -37,19 +36,6 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
       role="button"
       tabIndex={0}
     >
-      <div
-        className={css({
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          bottom: 0,
-          width: '10px',
-          backgroundColor: `var(--status-${task.status ?? 'pending'})`,
-          borderTopLeftRadius: '0.5rem',
-          borderBottomLeftRadius: '0.5rem',
-        })}
-        aria-label={`Status: ${task.status ?? 'pending'}`}
-      />
       <h4>{task.title}</h4>
       <p
         className={css({
@@ -59,7 +45,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, onClick }) => {
           textOverflow: 'ellipsis',
         })}
       >
-        {task.description}
+        {task.description || 'title says it all...'}
       </p>
       <p>{formatDate(task.dueDate)}</p>
     </div>
