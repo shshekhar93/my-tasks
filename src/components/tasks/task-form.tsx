@@ -114,12 +114,6 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
           type="date"
           value={formData.dueDate ? formatDate(formData.dueDate) : ''}
           onChange={handleInputChange}
-          style={{
-            // @ts-expect-error Vendor prefix
-            ':not(:focus)::-webkit-datetime-edit': {
-              color: 'transparent',
-            },
-          }}
         />
         <Input
           label="Effort Estimate (days)"

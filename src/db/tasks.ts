@@ -111,11 +111,10 @@ export class TasksManager {
         }
       }
       await this.db.clear('tasks');
-      console.log('Clear complete');
+
       for (const aTask of tasksToRestore) {
         await this.db.add('tasks', aTask);
       }
-      console.log('restore complete');
     }
     catch (e) {
       window.alert((e as Error).message);

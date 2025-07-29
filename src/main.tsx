@@ -1,5 +1,6 @@
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { register } from 'register-service-worker';
 import { Client as Styletron } from 'styletron-engine-atomic';
 import { Provider as StyletronProvider } from 'styletron-react';
 import App from './App.js';
@@ -14,3 +15,5 @@ createRoot(document.getElementById('root')!).render(
     </StyletronProvider>
   </StrictMode>,
 );
+
+register(`/task-manager/service-worker.js`);

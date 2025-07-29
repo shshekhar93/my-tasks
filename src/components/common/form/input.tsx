@@ -55,6 +55,12 @@ const Input: React.FC<InputProps> = ({ label, labelAnimation = true, multiline =
           height: !multiline ? '3rem' : '5rem',
           borderWidth: 0,
           outline: 'none',
+
+          ...(labelAnimation && props.type === 'date' && {
+            ':not(:focus)::-webkit-datetime-edit': {
+              color: 'transparent',
+            },
+          }),
         })}
         onFocus={(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
           setHasFocus(true);

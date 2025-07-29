@@ -49,14 +49,64 @@ const TaskFilters: React.FC<TaskFiltersProps> = ({
       {(!isMobile || isExpanded) && (
         <>
           <Flex flexDirection={['row', 'column']} wrap gap="1rem">
-            <Select name="status" id="status" label="Status" options={STATUS_FILTER_OPTIONS} value={filters.status} onChange={value => updateFilter('status', value)} />
-            <Select name="priority" id="priority" label="Priority" options={PRIORITY_FILTER_OPTIONS} value={filters.priority} onChange={value => updateFilter('priority', value)} />
-            <Input label="Due after" type="date" name="dueAfter" id="dueAfter" labelAnimation={false} value={filters.dueAfter ?? ''} onChange={e => updateFilter('dueAfter', e.target.value)} />
-            <Input label="Due before" type="date" name="dueBefore" id="dueBefore" labelAnimation={false} value={filters.dueBefore ?? ''} onChange={e => updateFilter('dueBefore', e.target.value)} />
-            <Input label="Title or description" type="search" name="search" id="search" value={filters.searchText} onChange={e => updateFilter('searchText', e.target.value)} />
-            <ToggleSwitch label="Show completed" checked={filters.showCompleted} onChange={e => updateFilter('showCompleted', e.target.checked)} />
-            <ToggleSwitch label="Show in-progress" checked={filters.showInProgress} onChange={e => updateFilter('showInProgress', e.target.checked)} />
-            <Button type="secondary" label="Clear all filters" onClick={clearFilters} />
+            <Select
+              name="status"
+              id="status"
+              label="Status"
+              options={STATUS_FILTER_OPTIONS}
+              value={filters.status}
+              onChange={value => updateFilter('status', value)}
+            />
+            <Select
+              name="priority"
+              id="priority"
+              label="Priority"
+              options={PRIORITY_FILTER_OPTIONS}
+              value={filters.priority}
+              onChange={value => updateFilter('priority', value)}
+              style={{
+                minWidth: '4rem',
+              }}
+            />
+            <Input
+              label="Due after"
+              type="date"
+              name="dueAfter"
+              id="dueAfter"
+              value={filters.dueAfter ?? ''}
+              onChange={e => updateFilter('dueAfter', e.target.value)}
+            />
+            <Input
+              label="Due before"
+              type="date"
+              name="dueBefore"
+              id="dueBefore"
+              value={filters.dueBefore ?? ''}
+              onChange={e => updateFilter('dueBefore', e.target.value)}
+            />
+            <Input
+              label="Title or description"
+              type="search"
+              name="search"
+              id="search"
+              value={filters.searchText}
+              onChange={e => updateFilter('searchText', e.target.value)}
+            />
+            <ToggleSwitch
+              label="Show completed"
+              checked={filters.showCompleted}
+              onChange={e => updateFilter('showCompleted', e.target.checked)}
+            />
+            <ToggleSwitch
+              label="Show in-progress"
+              checked={filters.showInProgress}
+              onChange={e => updateFilter('showInProgress', e.target.checked)}
+            />
+            <Button
+              type="secondary"
+              label="Clear all filters"
+              onClick={clearFilters}
+            />
           </Flex>
           <Flex flexDirection={['row', 'column']} gap="1rem">
             <Button

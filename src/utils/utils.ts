@@ -42,8 +42,7 @@ export async function readFile() {
     reader.onload = () => {
       resolve(reader.result as string);
     };
-    reader.onerror = (err) => {
-      console.log(err);
+    reader.onerror = () => {
       reject(new Error('FAILED_TO_READ_FILE'));
     };
     reader.readAsText(file);
