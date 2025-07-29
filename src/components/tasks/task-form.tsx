@@ -23,11 +23,11 @@ function formatDate(date: number) {
 }
 
 const defaultFormData = (): TaskFormData => ({
-  title: 'New Task',
+  title: '',
   description: '',
-  dueDate: Date.now(),
-  effort: 1,
-  priority: 2,
+  dueDate: 0,
+  effort: 0,
+  priority: -1,
   category: '',
   tags: [],
   status: 'pending',
@@ -35,8 +35,8 @@ const defaultFormData = (): TaskFormData => ({
 
 const mappers = {
   dueDate: (value: string) => new Date(value).getTime(),
-  effort: (value: string) => parseInt(value) ?? 1,
-  priority: (value: string) => parseInt(value) ?? 2,
+  effort: (value: string) => value ? parseInt(value) : 0,
+  priority: (value: string) => value ? parseInt(value) : -1,
   default: (value: string) => value,
 };
 
@@ -112,14 +112,20 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
           id="dueDate"
           name="dueDate"
           type="date"
-          value={formatDate(formData.dueDate)}
+          value={formData.dueDate ? formatDate(formData.dueDate) : ''}
           onChange={handleInputChange}
+          style={{
+            // @ts-expect-error Vendor prefix
+            ':not(:focus)::-webkit-datetime-edit': {
+              color: 'transparent',
+            },
+          }}
         />
         <Input
           label="Effort Estimate (days)"
           id="effort"
           name="effort"
-          value={formData.effort.toString()}
+          value={formData.effort ? formData.effort.toString() : ''}
           onChange={handleInputChange}
           min={1}
           max={365}
@@ -128,7 +134,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
           label="Priority"
           id="priority"
           name="priority"
-          value={formData.priority.toString()}
+          value={formData.priority !== -1 ? formData.priority.toString() : ''}
           onChange={value => setFormData(prev => ({ ...prev, priority: parseInt(value) ?? 2 }))}
           options={PRIORITY_OPTIONS}
         />

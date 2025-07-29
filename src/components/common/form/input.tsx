@@ -32,7 +32,7 @@ const Input: React.FC<InputProps> = ({ label, labelAnimation = true, multiline =
               position: 'absolute',
               top: showLargeLabel ? '0.75rem' : '1px',
               left: hasFocus ? '1px' : '2px',
-              right: hasFocus ? '1px' : '2px',
+              right: !showLargeLabel ? '2px' : undefined,
               background: 'white',
               padding: `0 0.5rem`,
               fontSize: showLargeLabel ? '1rem' : '0.8rem',

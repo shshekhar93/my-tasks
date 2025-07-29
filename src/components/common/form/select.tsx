@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { StyleObject, useStyletron } from 'styletron-react';
-import { getIDFromProps, getLabelWidth } from './utils';
+import { getIDFromProps } from './utils';
 
 interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'value' | 'onChange' | 'label'> {
   options: {
@@ -15,14 +15,9 @@ interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>
 const Select: React.FC<SelectProps> = ({ options, value, onChange, label, labelAnimation = true, style, ...props }) => {
   const [css] = useStyletron();
   const id = useMemo(() => getIDFromProps(props), [props.id, props.name]);
-  const [minWidth, setMinWidth] = useState<number>(0);
   const [hasFocus, setHasFocus] = useState(false);
 
-  const showLargeLabel = labelAnimation && value.length === 0 && !hasFocus;
-
-  useEffect(() => {
-    setMinWidth(getLabelWidth(id));
-  }, [id]);
+  const showLargeLabel = labelAnimation && value.length === 0;
 
   return (
     <div className={css({
@@ -47,6 +42,7 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, label, labelA
               fontWeight: 600,
               transition: 'font-size 0.1s linear, top 0.1s linear',
               transform: hasFocus ? 'translateY(-1px)' : undefined,
+              pointerEvents: 'none',
             })}
           >
             {label}
@@ -61,7 +57,6 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, label, labelA
           borderRadius: '0.25rem',
           fontSize: '1rem',
           width: '100%',
-          minWidth: `calc(${minWidth}px + 1rem)`,
           height: '3rem',
           borderWidth: 0,
           outline: 'none',
@@ -77,6 +72,7 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, label, labelA
         value={value}
         onChange={e => onChange(e.target.value)}
       >
+        {value === '' && <option disabled value=""></option>}
         {Object.entries(options).map(([key, label]) => (
           <option key={key} value={key}>{label}</option>
         ))}
