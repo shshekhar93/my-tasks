@@ -10,6 +10,7 @@
 
   --background-primary: #ffffff;
   --background-secondary: #d0d0d0;
+  --background-header: #1d2830;
   --content-primary: #000000;
   --content-secondary: #303030;
 
@@ -38,7 +39,9 @@
 
 html,
 body {
-  margin: 0
+  margin: 0;
+  background: var(--background-header);
+  height: 100%;
 }
 
 p,
@@ -51,6 +54,12 @@ h6 {
   margin: 0;
 }
 
+#root {
+  height: 100%;
+}
+
 main {
   padding: calc(70px + 1rem) 1rem 1rem;
+  background: var(--background-primary);
+  flex: 1;
 }

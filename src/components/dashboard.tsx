@@ -10,8 +10,10 @@ import CreateTaskModal from './tasks/task-form.tsx';
 import { TaskLists } from './tasks/task-lists.tsx';
 import { Task } from './tasks/types.ts';
 import ViewTaskModal from './tasks/view-task.tsx';
+import { useStyletron } from 'styletron-react';
 
 const Dashboard: React.FC = () => {
+  const [css] = useStyletron();
   const [isCreateTaskModalOpen, setIsCreateTaskModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const { filters, updateFilter, clearFilters } = useFilters();
@@ -24,7 +26,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div>
+    <Flex className={css({ height: '100%' })}>
       <Navigation>
         <Menu
           openCreateTaskModal={() => setIsCreateTaskModalOpen(true)}
@@ -32,7 +34,7 @@ const Dashboard: React.FC = () => {
           restoreBackup={restoreTasks}
         />
       </Navigation>
-      <Flex as="main" flexDirection="column" gap="0.5rem">
+      <Flex as="main" flexDirection="column" gap="0.5rem" flex={1}>
         <TaskFilters filters={filters} updateFilter={updateFilter} clearFilters={clearFilters} />
         <TaskLists tasks={filteredTasks} onSelect={setSelectedTask} />
       </Flex>
@@ -50,7 +52,7 @@ const Dashboard: React.FC = () => {
         onTransition={task => updateTask(task as Task)}
         onDelete={() => deleteTask(selectedTask!)}
       />
-    </div>
+    </Flex>
   );
 };
 

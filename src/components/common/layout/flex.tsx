@@ -13,6 +13,8 @@ type FlexProps = {
   alignItems?: FlexAlignItems | FlexAlignItems[];
   wrap?: boolean;
   gap?: string | string[];
+  flex?: string | number;
+  styleOverrides?: StyleObject;
 };
 
 export function Flex<T extends 'div' | 'form' = 'div'>({
@@ -23,6 +25,8 @@ export function Flex<T extends 'div' | 'form' = 'div'>({
   alignItems = 'stretch',
   wrap,
   gap = '0',
+  flex,
+  styleOverrides,
   ...props
 }: JSX.IntrinsicElements[T] & FlexProps) {
   const [css] = useStyletron();
@@ -42,12 +46,16 @@ export function Flex<T extends 'div' | 'form' = 'div'>({
         alignItems: alignItemsValue[0],
         gap: gapValue[0],
         flexWrap: wrap === true ? 'wrap' : undefined,
+        flex,
+        ...styleOverrides,
 
         [BREAKPOINTS.small]: {
           flexDirection: flexDirectionValue[1] ?? flexDirectionValue[0],
           justifyContent: justifyContentValue[1] ?? justifyContentValue[0],
           alignItems: alignItemsValue[1] ?? alignItemsValue[0],
           gap: gapValue[1] ?? gapValue[0],
+
+          ...(styleOverrides?.[BREAKPOINTS.small] as StyleObject),
         },
       })].filter(Boolean).join(' '),
     },
