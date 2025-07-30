@@ -88,9 +88,11 @@ const Modal: React.FC<ModalProps> = ({
       tabIndex={-1}
       ref={modalRef}
       className={css({
-        position: 'fixed',
+        position: 'absolute',
         top: 0,
         left: 0,
+        right: 0,
+        bottom: 0,
         width: '100vw',
         height: '100vh',
         background: 'rgba(0,0,0,0.5)',
@@ -109,7 +111,7 @@ const Modal: React.FC<ModalProps> = ({
           width: isMobile ? '100vw' : undefined,
           height: isMobile ? '100vh' : undefined,
           ...style,
-          overflowY: 'auto',
+          overflowY: 'hidden',
           position: 'relative',
         })}
         onClick={e => e.stopPropagation()}
@@ -129,8 +131,24 @@ const Modal: React.FC<ModalProps> = ({
         >
           &times;
         </button>
-        <h2 id={labelledById || 'modal-title'}>{title}</h2>
-        <div id={describedById}>{children}</div>
+        <h2
+          id={labelledById || 'modal-title'}
+          className={css({
+            marginBottom: '1rem',
+          })}
+        >
+          {title}
+        </h2>
+        <div
+          id={describedById}
+          className={css({
+            maxHeight: '100%',
+            overflowY: 'auto',
+            paddingBottom: '8rem',
+          })}
+        >
+          {children}
+        </div>
       </div>
     </Flex>,
     document.body,

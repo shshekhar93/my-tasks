@@ -11,7 +11,7 @@ const Button: React.FC<ButtonProps> = ({ label, type = 'primary', ...props }) =>
   return (
     <button
       {...props}
-      className={css({
+      className={[props.className, css({
         backgroundColor:
           type === 'primary'
             ? 'var(--primary-color)'
@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({ label, type = 'primary', ...props }) =>
         cursor: 'pointer',
         fontSize: '1rem',
         textAlign: type === 'tertiary' ? 'left' : 'center',
-      })}
+      })].filter(Boolean).join(' ')}
     >
       {label}
     </button>
