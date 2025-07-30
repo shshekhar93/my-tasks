@@ -33,7 +33,8 @@ const Input: React.FC<InputProps> = ({ label, labelAnimation = true, multiline =
               top: showLargeLabel ? '0.75rem' : '1px',
               left: hasFocus ? '1px' : '2px',
               right: !showLargeLabel ? '2px' : undefined,
-              background: 'white',
+              background: 'var(--background-primary)',
+              color: 'var(--content-secondary)',
               padding: `0 0.5rem`,
               fontSize: showLargeLabel ? '1rem' : '0.8rem',
               fontWeight: 600,
@@ -47,19 +48,42 @@ const Input: React.FC<InputProps> = ({ label, labelAnimation = true, multiline =
       <Component
         {...props}
         id={id}
+        placeholder=" "
         className={css({
+          background: 'var(--background-primary)',
+          color: 'var(--content-primary)',
           ...(props.style as StyleObject),
           padding: `1.2rem 0.5rem 0.3rem`,
           fontSize: '1rem',
-          width: '100%',
+          width: `calc(100% - ${props.type === 'date' ? 0 : 0}rem)`,
           height: !multiline ? '3rem' : '5rem',
           borderWidth: 0,
           outline: 'none',
 
-          ...(labelAnimation && props.type === 'date' && {
-            ':not(:focus)::-webkit-datetime-edit': {
-              color: 'transparent',
+          // Date field
+          ...(props.type === 'date' && {
+            '-webkit-appearance': 'none',
+            'appearance': 'none',
+            '::-webkit-date-and-time-value': {
+              textAlign: 'left',
             },
+            '::-webkit-calendar-picker-indicator': {
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              width: 'auto',
+              height: 'auto',
+              background: 'transparent',
+              color: 'transparent',
+              cursor: 'pointer',
+            },
+            ...(labelAnimation && !props.value && !hasFocus && {
+              ':not(:focus)::-webkit-datetime-edit': {
+                color: 'transparent',
+              },
+            }),
           }),
         })}
         onFocus={(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {

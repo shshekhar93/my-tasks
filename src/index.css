@@ -8,6 +8,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --background-primary: #ffffff;
+  --background-secondary: #d0d0d0;
+  --content-primary: #000000;
+  --content-secondary: #303030;
+
+
   --primary-color: #007bff;
   --secondary-color: #6c757d;
   --tertiary-color: #f8f9fa;

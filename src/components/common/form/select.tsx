@@ -36,7 +36,8 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, label, labelA
               top: showLargeLabel ? '0.75rem' : '1px',
               left: hasFocus ? '1px' : '2px',
               right: hasFocus ? '1px' : '2px',
-              background: 'white',
+              background: 'var(--background-primary)',
+              color: 'var(--content-secondary)',
               padding: `0 0.5rem`,
               fontSize: showLargeLabel ? '1rem' : '0.8rem',
               fontWeight: 600,
@@ -52,14 +53,17 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, label, labelA
         {...props}
         id={id}
         className={css({
+          'background': 'var(--background-primary)',
+          'color': 'var(--content-primary)',
           ...(style as StyleObject),
-          padding: '1.2rem 0.5rem 0.3rem',
-          borderRadius: '0.25rem',
-          fontSize: '1rem',
-          width: '100%',
-          height: '3rem',
-          borderWidth: 0,
-          outline: 'none',
+          'padding': '1.2rem 0.5rem 0.3rem',
+          '-webkit-appearance': 'none',
+          'borderRadius': '0.25rem',
+          'fontSize': '1rem',
+          'width': '100%',
+          'height': '3rem',
+          'borderWidth': 0,
+          'outline': 'none',
         })}
         onFocus={(e) => {
           setHasFocus(true);
@@ -77,6 +81,21 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, label, labelA
           <option key={key} value={key}>{label}</option>
         ))}
       </select>
+      <div className={css({
+        position: 'absolute',
+        top: '50%',
+        right: '0.5rem',
+        width: 0,
+        height: 0,
+        borderLeft: '5px solid transparent',
+        borderRight: '5px solid transparent',
+        borderTop: '5px solid #333',
+        display: 'inline-block',
+        verticalAlign: 'middle',
+        marginLeft: '5px',
+      })}
+      >
+      </div>
     </div>
   );
 };
