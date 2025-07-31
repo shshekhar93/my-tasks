@@ -103,7 +103,7 @@ const Modal: React.FC<ModalProps> = ({
       <div
         className={css({
           background: '#fff',
-          padding: '2rem',
+          // padding: '2rem',
           borderRadius: '8px',
           minWidth: '300px',
           maxWidth: isMobile ? '100vw' : '90vw',
@@ -134,6 +134,7 @@ const Modal: React.FC<ModalProps> = ({
         <h2
           id={labelledById || 'modal-title'}
           className={css({
+            padding: '2rem 2rem 0 2rem',
             marginBottom: '1rem',
           })}
         >
@@ -144,7 +145,7 @@ const Modal: React.FC<ModalProps> = ({
           className={css({
             maxHeight: '100%',
             overflowY: 'auto',
-            paddingBottom: '8rem',
+            padding: '0 2rem 8rem',
           })}
         >
           {children}
