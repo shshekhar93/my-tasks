@@ -1,5 +1,6 @@
 import React from 'react';
 import { PRIORITY_FILTER_OPTIONS, STATUS_FILTER_OPTIONS } from '../../constants/filters';
+import { formatDateISO } from '../../utils/utils';
 import Button from '../common/form/button';
 import Input from '../common/form/input';
 import Select from '../common/form/select';
@@ -11,10 +12,6 @@ export type TaskFilterFiledsProps = {
   filters: Filters;
   updateFilter: (filter: keyof Filters, value: string | boolean) => void;
   clearFilters: () => void;
-};
-
-const formatDate = (date: Date) => {
-  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
 };
 
 const TaskFilterFields: React.FC<TaskFilterFiledsProps> = ({
@@ -91,8 +88,8 @@ const TaskFilterFields: React.FC<TaskFilterFiledsProps> = ({
           onClick={() => {
             const tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
-            updateFilter('dueAfter', formatDate(new Date()));
-            updateFilter('dueBefore', formatDate(tomorrow));
+            updateFilter('dueAfter', formatDateISO(new Date()));
+            updateFilter('dueBefore', formatDateISO(tomorrow));
           }}
         />
         <Button
@@ -104,8 +101,8 @@ const TaskFilterFields: React.FC<TaskFilterFiledsProps> = ({
             weekStart.setHours(0, 0, 0, 0);
             const weekEnd = new Date(weekStart);
             weekEnd.setDate(weekEnd.getDate() + 6);
-            updateFilter('dueAfter', formatDate(weekStart));
-            updateFilter('dueBefore', formatDate(weekEnd));
+            updateFilter('dueAfter', formatDateISO(weekStart));
+            updateFilter('dueBefore', formatDateISO(weekEnd));
           }}
         />
         <Button

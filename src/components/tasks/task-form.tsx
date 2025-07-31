@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useStyletron } from 'styletron-react';
 import { PRIORITY_OPTIONS, STATUS_OPTIONS } from '../../constants/filters.ts';
+import { formatDateISO } from '../../utils/utils.ts';
 import Input from '../common/form/input.tsx';
 import Select from '../common/form/select.tsx';
 import { Flex } from '../common/layout/flex.tsx';
@@ -19,7 +20,7 @@ function formatDate(date: number) {
   if (isNaN(dateObj.getTime())) {
     return '';
   }
-  return `${dateObj.getFullYear()}-${String(dateObj.getMonth() + 101).substring(1)}-${dateObj.getDate()}`;
+  return formatDateISO(dateObj);
 }
 
 const defaultFormData = (): TaskFormData => ({
