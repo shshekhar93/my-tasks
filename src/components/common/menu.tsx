@@ -116,8 +116,8 @@ export function Hamburger({
         right: 0,
         top: 'calc(50% - 2px)',
         borderBottom: 'solid white 3px',
-        visibility: isOpen ? 'hidden' : 'visible',
-        transition: 'visibility 0.2s ease-in-out',
+        opacity: isOpen ? 0 : 1,
+        transition: 'opacity 0.15s ease-in-out',
       })}
       />
       <div className={css({
