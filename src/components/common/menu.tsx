@@ -17,12 +17,16 @@ export function Menu({
 }: MenuProps) {
   const [css] = useStyletron();
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpening, setOpening] = useState(false);
   const isMobile = useIsMobile();
 
   useEffect(() => {
     if (!isOpen) {
+      setOpening(false);
       return;
     }
+
+    setOpening(true);
 
     const closeMenu = (e) => {
       e.preventDefault();
@@ -46,12 +50,16 @@ export function Menu({
         position: isMobile ? 'fixed' : 'absolute',
         top: isMobile ? '70px' : 'calc(100% + 0.5rem)',
         right: '0',
-        minWidth: isMobile ? '100%' : '250px',
-        width: 'fit-content',
         backgroundColor: 'white',
-        padding: '1rem',
         borderRadius: '0.5rem',
         boxShadow: '0px 1px 8px 1px gray',
+
+        // Transition stuff
+        width: isOpening ? (isMobile ? '100%' : '250px') : 0,
+        height: isOpening ? '160px' : 0,
+        padding: isOpening ? '1rem' : 0,
+        transition: 'height 0.2s ease-in-out, width 0.2s ease-in-out, padding 0.2s ease-in-out',
+        overflow: 'hidden',
       })}
       >
         {isOpen && (

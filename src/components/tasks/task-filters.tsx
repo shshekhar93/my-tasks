@@ -34,7 +34,7 @@ const TaskFilters: React.FC<TaskFiltersProps> = (props) => {
               })}
               type="secondary"
               label="Clear all"
-              onClick={() => setIsExpanded(!isExpanded)}
+              onClick={props.clearFilters}
             />
           </Flex>
         )}

@@ -40,6 +40,7 @@ const Input: React.FC<InputProps> = ({ label, labelAnimation = true, multiline =
               fontWeight: 600,
               transition: 'font-size 0.1s linear, top 0.1s linear',
               transform: hasFocus ? 'translateY(-1px)' : undefined,
+              zIndex: 1,
             })}
           >
             {label}

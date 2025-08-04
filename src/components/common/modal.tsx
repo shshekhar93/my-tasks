@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { StyleObject, useStyletron } from 'styletron-react';
 import { useIsMobile } from './layout/breakpoints';
 import { Flex } from './layout/flex';
+import { isIPhone } from '../../utils/utils';
 
 interface ModalProps {
   isOpen: boolean;
@@ -95,21 +96,24 @@ const Modal: React.FC<ModalProps> = ({
         bottom: 0,
         width: '100vw',
         height: '100vh',
-        background: 'rgba(0,0,0,0.5)',
+        background: 'rgba(0,0,0,0.85)',
+        display: 'flex',
+        justifyContent: 'center',
+        // @ts-expect-error navigator.standalone is not a standard prop.
+        padding: `75px 1rem ${(!isIPhone() || navigator.standalone) ? '75px' : '150px'} 1rem`,
         zIndex: 1000,
       })}
       onClick={onClose}
     >
       <div
         className={css({
-          background: '#fff',
-          // padding: '2rem',
+          background: 'var(--background-primary)',
           borderRadius: '8px',
           minWidth: '300px',
-          maxWidth: isMobile ? '100vw' : '90vw',
-          maxHeight: isMobile ? '100vh' : '90vh',
-          width: isMobile ? '100vw' : undefined,
-          height: isMobile ? '100vh' : undefined,
+          maxWidth: isMobile ? '100%' : '90vw',
+          maxHeight: isMobile ? '100%' : '90vh',
+          width: isMobile ? '100%' : undefined,
+          height: isMobile ? '100%' : undefined,
           ...style,
           overflowY: 'hidden',
           position: 'relative',
